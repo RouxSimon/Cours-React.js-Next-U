@@ -3,21 +3,19 @@ import axios from "axios";
 //import { Redirect } from "react-router-dom";
 // <Redirect to="/index" />
 
-class ExpenseEntryItemEdit extends React.Component {
+class ClientEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       item: {
         id: "",
-        nom: "",
-        adresse: "",
+        numero: "",
         telephone: ""
       },
       checkForm: false
     };
 
-    this.handlenomChange = this.handlenomChange.bind(this);
-    this.handleadresseChange = this.handleadresseChange.bind(this);
+    this.handlenumeroChange = this.handlenumeroChange.bind(this);
     this.handletelephoneChange = this.handletelephoneChange.bind(this);
     console.log(this.props.match.params.id);
     console.log(this.props.match);
@@ -26,7 +24,7 @@ class ExpenseEntryItemEdit extends React.Component {
   componentDidMount() {
     axios
       .get(
-        "https://62055a81161670001741b9aa.mockapi.io/hotel/" +
+        "https://62055a81161670001741b9aa.mockapi.io/chambre/" +
           this.props.match.params.id
       )
       .then((response) => {
@@ -38,12 +36,8 @@ class ExpenseEntryItemEdit extends React.Component {
       });
   }
 
-  handlenomChange(e) {
-    this.state.item.nom = e.target.value;
-    this.setState(this.state.item);
-  }
-  handleadresseChange(e) {
-    this.state.item.adresse = e.target.value;
+  handlenumeroChange(e) {
+    this.state.item.numero = e.target.value;
     this.setState(this.state.item);
   }
   handletelephoneChange(e) {
@@ -56,7 +50,7 @@ class ExpenseEntryItemEdit extends React.Component {
 
     axios
       .put(
-        "https://62055a81161670001741b9aa.mockapi.io/hotel/" +
+        "https://62055a81161670001741b9aa.mockapi.io/chambre/" +
           this.state.item.id,
         this.state.item
       )
@@ -88,39 +82,27 @@ class ExpenseEntryItemEdit extends React.Component {
     return (
       <div id="container">
         <div>
-          <h3>Modifier un hôtel</h3>
+          <h3>Modifier une chambre</h3>
         </div>
 
         <form onSubmit={(e) => this.onSubmit(e)}>
           {divAlert}
           <div className="form-group">
-            <label>Nom</label>
+            <label>Numero</label>
             <input
-              type="text"
-              id="nom"
-              name="nom"
-              placeholder="Enter un nom"
-              value={this.state.item.nom}
-              onChange={this.handlenomChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Adresse</label>
-            <input
-              type="text"
-              id="adresse"
-              name="adresse"
-              placeholder="Enter une adresse"
-              value={this.state.item.adresse}
-              onChange={this.handleadresseChange}
+              type="number"
+              id="numero"
+              name="numero"
+              placeholder="Enter un numero"
+              value={this.state.item.numero}
+              onChange={this.handlenumeroChange}
             />
           </div>
 
           <div className="form-group">
             <label>Telephone</label>
             <input
-              type="text"
+              type="number"
               id="telephone"
               name="telephone"
               placeholder="Enter un telephone"
@@ -137,4 +119,4 @@ class ExpenseEntryItemEdit extends React.Component {
     );
   }
 }
-export default ExpenseEntryItemEdit;
+export default ClientEdit;

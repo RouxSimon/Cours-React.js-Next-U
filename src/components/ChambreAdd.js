@@ -1,43 +1,39 @@
 import React from "react";
 import axios from "axios";
 
-class ExpenseEntryItemAdd extends React.Component {
+class ClientAdd extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       item: {
-        nom: "",
-        adresse: "",
+        id: "",
+        numero: "",
         telephone: ""
       },
       checkForm: false
     };
-    this.handlenomChange = this.handlenomChange.bind(this);
-    this.handleadresseChange = this.handleadresseChange.bind(this);
+    this.handlenumeroChange = this.handlenumeroChange.bind(this);
     this.handletelephoneChange = this.handletelephoneChange.bind(this);
   }
 
-  handlenomChange(e) {
-    this.state.item.nom = e.target.value;
-    this.setState(this.state.item);
-  }
-  handleadresseChange(e) {
-    this.state.item.adresse = e.target.value;
+  handlenumeroChange(e) {
+    this.state.item.numero = e.target.value;
     this.setState(this.state.item);
   }
   handletelephoneChange(e) {
     this.state.item.telephone = e.target.value;
     this.setState(this.state.item);
   }
+
   onSubmit = (e) => {
     e.preventDefault();
     // alert(JSON.stringify(this.state.item));
 
-    this.state.item.telepone = e.target.value;
+    this.state.item.telephone = e.target.value;
 
     axios
       .post(
-        "https://62055a81161670001741b9aa.mockapi.io/hotel",
+        "https://62055a81161670001741b9aa.mockapi.io/chambre",
         this.state.item
       )
       .then((response) => {
@@ -67,41 +63,35 @@ class ExpenseEntryItemAdd extends React.Component {
     return (
       <div id="container">
         <div>
-          <h3>Ajouter un hôtel</h3>
+          <h3>Ajouter un Client</h3>
         </div>
         <form onSubmit={(e) => this.onSubmit(e)}>
           {divAlert}
           <div className="form-group">
-            <label>Nom</label>
+            <label
+              style={{
+                marginRight: "2%"
+              }}
+            >
+              Numéro de la chambre
+            </label>
             <input
-              type="text"
-              id="nom"
-              name="nom"
-              placeholder="Enter un nom"
-              value={this.state.item.nom}
-              onChange={this.handlenomChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Adresse</label>
-            <input
-              type="text"
-              id="adresse"
-              name="adresse"
-              placeholder="Enter une adresse"
-              value={this.state.item.adresse}
-              onChange={this.handleadresseChange}
+              type="number"
+              id="numero"
+              name="numero"
+              placeholder="Numero de la chambre"
+              value={this.state.item.numero}
+              onChange={this.handlenumeroChange}
             />
           </div>
 
           <div className="form-group">
             <label>Telephone</label>
             <input
-              type="text"
+              type="number"
               id="telephone"
               name="telephone"
-              placeholder="Enter un telephone"
+              placeholder="Entrer un telephone"
               value={this.state.item.telephone}
               onChange={this.handletelephoneChange}
             />
@@ -115,4 +105,4 @@ class ExpenseEntryItemAdd extends React.Component {
     );
   }
 }
-export default ExpenseEntryItemAdd;
+export default ClientAdd;
